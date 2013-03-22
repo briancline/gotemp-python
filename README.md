@@ -68,9 +68,9 @@ Special Thanks
 This couldn't have been done without community contributions from these lovely
 folks:
 
-* The Herd Of Kittens' `gotemp-ldusb.py` utility (2008):
+* The Herd Of Kittens' `gotemp-ldusb.py` utility (2008)
   (http://www.thok.org/intranet/python/vernier/README.html)
-* Scott Tsai's gotemp-lights.py utility (2010)
+* Scott Tsai's `gotemp-lights.py` utility (2010)
   (https://gitorious.org/scottt/gotemp)
 
 License
