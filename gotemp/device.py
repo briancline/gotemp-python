@@ -8,8 +8,8 @@ import struct
 import time
 from constants import \
     CMD_PACKET_SIZE, CMD_ID_SET_LED_STATE, CMD_ID_GET_LED_STATE, \
-    LED_BRIGHTNESS_MED, LED_BRIGHTNESS_MAX, LED_BRIGHTNESS_MIN, \
-    LED_COLOR_RED, LED_COLOR_GREEN, LED_COLOR_ORANGE
+    LED_BRIGHTNESS_MAX, LED_BRIGHTNESS_MIN, LED_BRIGHTNESS_ORANGE, \
+    LED_COLOR_BLACK, LED_COLOR_RED, LED_COLOR_GREEN, LED_COLOR_ORANGE
 
 
 class Device(object):
@@ -49,29 +49,42 @@ class Device(object):
                                  struct.pack(*(['BBBBBBBB'] + packet)))
         assert(bytes_written == CMD_PACKET_SIZE)
 
-    def _set_led(self, color, brightness=LED_BRIGHTNESS_MED):
+    def _set_led(self, color, brightness=LED_BRIGHTNESS_MAX):
         if brightness < LED_BRIGHTNESS_MIN or LED_BRIGHTNESS_MAX < brightness:
             raise TypeError('LED brightness out of range')
+
+        if color == LED_COLOR_ORANGE:
+            brightness = LED_BRIGHTNESS_ORANGE
 
         self.send_cmd(CMD_ID_SET_LED_STATE, color, brightness)
 
     def _get_led_state(self):
         self.send_cmd(CMD_ID_GET_LED_STATE)
 
+    def set_led_off(self):
+        self._set_led(LED_COLOR_BLACK, LED_BRIGHTNESS_MIN)
+        self._get_led_state()
+        time.sleep(0.25)
+
     def set_color_red(self):
-        self.set_led(LED_COLOR_RED)
+        self._set_led(LED_COLOR_RED, LED_BRIGHTNESS_MAX)
+        self._get_led_state()
+        time.sleep(0.25)
 
     def set_color_green(self):
-        self.set_led(LED_COLOR_GREEN)
+        self._set_led(LED_COLOR_GREEN, LED_BRIGHTNESS_MAX)
+        self._get_led_state()
+        time.sleep(0.25)
 
     def set_color_orange(self):
-        self.set_led(LED_COLOR_ORANGE)
+        self._set_led(LED_COLOR_ORANGE, LED_BRIGHTNESS_ORANGE)
+        self._get_led_state()
+        time.sleep(0.25)
 
     def test_leds(self):
         for color in [LED_COLOR_RED, LED_COLOR_GREEN, LED_COLOR_ORANGE]:
             for brightness in [LED_BRIGHTNESS_MIN, LED_BRIGHTNESS_MAX]:
                 self._set_led(color, brightness)
-                self._get_led_state()
                 time.sleep(0.5)
 
     def get_reading(self):
