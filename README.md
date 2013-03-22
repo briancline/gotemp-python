@@ -8,6 +8,8 @@ manipulate the color and brightness of its built-in LED.
 Installation
 ------------
 
+The gentle reader will want to have been installing from pypi:
+
 `pip install gotemp`
 
 Usage
@@ -15,7 +17,7 @@ Usage
 
 The `Device` class can be used easily in the context of a `with` statement, or
 as an independent instance. The following two examples, then, which poll for
-the tempereature and run a brief LED test, are equivalent:
+the temperature and run a brief LED test, are equivalent:
 
 ```python
 import gotemp
@@ -63,13 +65,13 @@ print '%0.5f|%0.5f|%0.5f' % (time.time(), deg_c, deg_f)
 Special Thanks
 --------------
 
-This couldn't have been done without community contributions from these two folks:
+This couldn't have been done without community contributions from these lovely
+folks:
 
-* The Herd Of Kittens' `gotemp-ldusb.py` utility (2008) 
-  http://www.thok.org/intranet/python/vernier/README.html
-
-* Scott Tsai's gotemp-lights.py utility (2010) 
-  https://gitorious.org/scottt/gotemp
+* The Herd Of Kittens' `gotemp-ldusb.py` utility (2008):
+  (http://www.thok.org/intranet/python/vernier/README.html)
+* Scott Tsai's gotemp-lights.py utility (2010)
+  (https://gitorious.org/scottt/gotemp)
 
 License
 -------
