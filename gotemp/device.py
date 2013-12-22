@@ -13,18 +13,18 @@ from constants import \
 
 
 class Device(object):
-    def __init__(self, device, open=False):
+    def __init__(self, device, open_dev=False):
         self.fd = None
         self.path = device
 
-        if open:
+        if open_dev:
             self.open()
 
     def __enter__(self):
         self.open()
         return self
 
-    def __exit__(self, type, val, traceback):
+    def __exit__(self, exception_type, exception_val, taceback):
         self.close()
 
     def open(self):
@@ -92,7 +92,7 @@ class Device(object):
         data = list(struct.unpack("<BBHHH", packet))
 
         num_samples = data.pop(0)
-        seq_num = data.pop(0)  # NOQA
+        data.pop(0)  # pop the sequence number off; we don't need this
 
         deg_c = None
         deg_f = None
